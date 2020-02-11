@@ -4,7 +4,7 @@ from .models import Post
 from django.views.generic import ListView 
 class HomePage(ListView):
     queryset = Post.objects.all()
-    template_name = "pages/homepage.html"
+    template_name = "pages/posts.html"
     
     context_object_name = "posts"
 
