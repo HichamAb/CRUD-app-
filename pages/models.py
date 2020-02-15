@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User  
+from django.urls import reverse
 from django.utils import timezone
 #from django.utils.text import Slugfy
 import uuid
@@ -20,8 +21,14 @@ class Post(models.Model):
     author = models.ForeignKey(User,on_delete=models.DO_NOTHING)
     status = models.IntegerField(choices=STATUS,default=0)
 
-
-    
-
     def __str__(self):
        return self.title + ' posted by |' + self.author.username
+
+    def save(self,*args,**kwargs) : 
+        from django.utils.text import Slugfy
+        self.slug = Slugfy(self.title) 
+        return super(Post,self).save(*args,**kwargs)
+
+    def get_absolute_url(self,*args,**kwargs):
+       
+        return reverse('home-page', kwargs={'slug': self.slug})
