@@ -1,16 +1,16 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Post 
+from .models import Post , Category
 
 
 
 class PostAdmin(admin.ModelAdmin) : 
-    list_display = ["title","author","created_on","status","slug"]
+    list_display = ["title","categories","author","created_on","status","slug"]
     
     fieldsets = (
         ("Post Info", {
-            'fields': (("title","author","slug"),"content")
+            'fields': ("title","categories","author","slug","content")
                   
         }),
         ('Date && Status' , {
@@ -20,3 +20,4 @@ class PostAdmin(admin.ModelAdmin) :
     
 
 admin.site.register(Post,PostAdmin)
+admin.site.register(Category)
